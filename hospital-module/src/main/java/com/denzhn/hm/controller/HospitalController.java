@@ -52,7 +52,7 @@ public class HospitalController {
         }
     }
 
-    @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "/updated-doctor/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Doctor doctor) {
         try {
             HospitalDto hospitalDto = service.update(id, doctor);
