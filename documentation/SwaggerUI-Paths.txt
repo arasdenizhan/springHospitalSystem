@@ -1,0 +1,6 @@
+Doctor Module:
+    http://localhost:8091/swagger-ui.html
+Hospital Module:
+    http://localhost:8092/swagger-ui.html
+Patient Module:
+    http://localhost:8093/swagger-ui.html

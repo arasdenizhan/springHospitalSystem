@@ -1,0 +1,65 @@
+{
+  "info": {
+    "_postman_id": "df74927e-42c5-4800-a104-ee1c5b625712",
+    "name": "springHospitalSystem",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "21340339"
+  },
+  "item": [
+    {
+      "name": "Hospital Module",
+      "item": [
+        {
+          "name": "Create Hospital",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Denizli Devlet Hastanesi\",\n  \"hospitalType\": \"GENERAL_MEDICAL\",\n  \"address\": {\n    \"street\": \"Sırakapılar, Selçuk Cd. Merkezefendi\",\n    \"city\": \"Denizli\",\n    \"zipCode\": 20010\n  },\n  \"doctors\": [\n    1,2,3,4,5\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8092/api/hospital",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8092",
+              "path": [
+                "api",
+                "hospital"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Eureka Module",
+      "item": [
+        {
+          "name": "Server Console",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8761",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8761"
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
