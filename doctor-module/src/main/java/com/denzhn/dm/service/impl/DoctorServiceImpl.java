@@ -25,12 +25,8 @@ public class DoctorServiceImpl implements DoctorService {
     public DoctorDto create(Doctor doctor) throws BusinessLayerException {
         try {
             Doctor savedEntity = repository.save(doctor);
-            ResponseEntity<String> updateResponse = hospitalFeign.update(savedEntity.getHospitalId(), savedEntity);
-            if (HttpStatus.OK.equals(updateResponse.getStatusCode())) {
-                return PopulateHelper.convertToDoctorDto(savedEntity);
-            }
-            repository.delete(savedEntity);
-            return null;
+            hospitalFeign.updateDoctorInformation(savedEntity.getHospitalId(), savedEntity);
+            return PopulateHelper.convertToDoctorDto(savedEntity);
         } catch (Exception e) {
             throw new BusinessLayerException(e.getMessage(), e);
         }
@@ -53,7 +49,7 @@ public class DoctorServiceImpl implements DoctorService {
                 return null;
             hospitalFeign.updateDeletedDoctor(id, doctor);
             doctor.setHospitalId(hospitalId);
-            hospitalFeign.update(hospitalId, doctor);
+            hospitalFeign.updateDoctorInformation(hospitalId, doctor);
             return PopulateHelper.convertToDoctorDto(repository.save(doctor));
         } catch (Exception e) {
             throw new BusinessLayerException(e.getMessage(), e);

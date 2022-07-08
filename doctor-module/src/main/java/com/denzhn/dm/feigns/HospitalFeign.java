@@ -22,7 +22,7 @@ public interface HospitalFeign {
     ResponseEntity<String> get(@PathVariable Long id);
 
     @PutMapping(path = "/api/hospital/updated-doctor/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<String> update(@PathVariable Long id, @RequestBody Doctor doctor);
+    ResponseEntity<String> updateDoctorInformation(@PathVariable Long id, @RequestBody Doctor doctor);
 
     @PutMapping(path = "/api/hospital/deleted-doctor/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<String> updateDeletedDoctor(@PathVariable Long id, @RequestBody Doctor doctor);
