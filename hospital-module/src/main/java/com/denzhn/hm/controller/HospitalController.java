@@ -4,6 +4,7 @@ import com.denzhn.hm.service.HospitalService;
 import com.denzhn.repo.commons.exceptions.BusinessLayerException;
 import com.denzhn.repo.dm.model.Doctor;
 import com.denzhn.repo.hm.dto.HospitalDto;
+import com.denzhn.repo.hm.dto.HospitalUpdateDto;
 import com.denzhn.repo.hm.model.Hospital;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -79,10 +80,22 @@ public class HospitalController {
         }
     }
 
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> update(@Valid @RequestBody HospitalUpdateDto dto) {
+        try {
+            HospitalDto hospitalDto = service.update(dto);
+            return Objects.isNull(hospitalDto) ?
+                    ResponseEntity.internalServerError().build() :
+                    ResponseEntity.ok(objectMapper.writeValueAsString(hospitalDto));
+        } catch (JsonProcessingException | BusinessLayerException e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
     @PutMapping(path = "/updated-doctor/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> updateDoctorInformation(@PathVariable Long id, @RequestBody Doctor doctor) {
         try {
-            HospitalDto hospitalDto = service.update(id, doctor);
+            HospitalDto hospitalDto = service.updateDoctorInfo(id, doctor);
             return Objects.isNull(hospitalDto) ?
                     ResponseEntity.internalServerError().build() :
                     ResponseEntity.ok(objectMapper.writeValueAsString(hospitalDto));

@@ -1,6 +1,7 @@
 package com.denzhn.dm.feigns;
 
 import com.denzhn.repo.dm.model.Doctor;
+import com.denzhn.repo.hm.dto.HospitalUpdateDto;
 import com.denzhn.repo.hm.model.Hospital;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -23,6 +24,9 @@ public interface HospitalFeign {
 
     @GetMapping(path = "/api/hospital", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<String> list();
+
+    @PutMapping(path = "/api/hospital", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<String> update(@Valid @RequestBody HospitalUpdateDto dto);
 
     @PutMapping(path = "/api/hospital/updated-doctor/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<String> updateDoctorInformation(@PathVariable Long id, @RequestBody Doctor doctor);

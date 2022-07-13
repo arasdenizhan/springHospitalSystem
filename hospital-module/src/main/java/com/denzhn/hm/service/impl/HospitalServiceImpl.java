@@ -7,6 +7,7 @@ import com.denzhn.hm.service.HospitalService;
 import com.denzhn.repo.commons.exceptions.BusinessLayerException;
 import com.denzhn.repo.dm.model.Doctor;
 import com.denzhn.repo.hm.dto.HospitalDto;
+import com.denzhn.repo.hm.dto.HospitalUpdateDto;
 import com.denzhn.repo.hm.model.Hospital;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,19 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public HospitalDto update(Long id, Doctor doctor) throws BusinessLayerException {
+    public HospitalDto update(HospitalUpdateDto updateDto) throws BusinessLayerException {
+        try {
+            Hospital hospital = repository.findById(updateDto.getId()).orElse(null);
+            if (Objects.isNull(hospital))
+                return null;
+            return PopulateHelper.convertToHospitalDto(repository.save(PopulateHelper.populateFromUpdateDto(hospital, updateDto)));
+        } catch (Exception e) {
+            throw new BusinessLayerException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public HospitalDto updateDoctorInfo(Long id, Doctor doctor) throws BusinessLayerException {
         try {
             Hospital hospital = repository.findById(id).orElse(null);
             if (Objects.isNull(hospital))

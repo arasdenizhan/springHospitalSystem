@@ -2,8 +2,12 @@ package com.denzhn.hm.helper;
 
 
 import com.denzhn.repo.hm.dto.HospitalDto;
+import com.denzhn.repo.hm.dto.HospitalUpdateDto;
 import com.denzhn.repo.hm.model.AddressModel;
 import com.denzhn.repo.hm.model.Hospital;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Objects;
 
 public final class PopulateHelper {
 
@@ -22,7 +26,21 @@ public final class PopulateHelper {
                 .doctors(hospital.getDoctors()).build();
     }
 
-    public static String convertToAddressString(AddressModel addressModel) {
+    public static Hospital populateFromUpdateDto(final Hospital hospital, HospitalUpdateDto dto) {
+        hospital.setName(StringUtils.isEmpty(dto.getName()) ? hospital.getName() : dto.getName());
+        hospital.setAddress(populateAddressFromDto(hospital.getAddress(), dto));
+        return hospital;
+    }
+
+    private static String convertToAddressString(AddressModel addressModel) {
         return addressModel.getStreet() + COMMA + addressModel.getCity() + COMMA + addressModel.getZipCode();
+    }
+
+    private static AddressModel populateAddressFromDto(final AddressModel addressModel, HospitalUpdateDto dto) {
+        return AddressModel.builder()
+                .city(StringUtils.isEmpty(dto.getCity()) ? addressModel.getCity() : dto.getCity())
+                .street(StringUtils.isEmpty(dto.getStreet()) ? addressModel.getStreet() : dto.getStreet())
+                .zipCode(Objects.isNull(dto.getZipCode()) ? addressModel.getZipCode() : dto.getZipCode())
+                .build();
     }
 }

@@ -21,7 +21,7 @@ public final class PopulateHelper {
                 .hospitalId(doctor.getHospitalId()).build();
     }
 
-    public static String convertToAddressString(AddressModel addressModel) {
+    private static String convertToAddressString(AddressModel addressModel) {
         return addressModel.getStreet() + COMMA + addressModel.getCity() + COMMA + addressModel.getZipCode();
     }
 }
