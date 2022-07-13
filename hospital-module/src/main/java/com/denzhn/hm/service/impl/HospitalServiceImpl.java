@@ -1,5 +1,6 @@
 package com.denzhn.hm.service.impl;
 
+import com.denzhn.hm.feigns.DoctorFeign;
 import com.denzhn.hm.helper.PopulateHelper;
 import com.denzhn.hm.repository.HospitalRepository;
 import com.denzhn.hm.service.HospitalService;
@@ -19,6 +20,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class HospitalServiceImpl implements HospitalService {
     private final HospitalRepository repository;
+    private final DoctorFeign doctorFeign;
 
     @Override
     public HospitalDto create(Hospital hospital) throws BusinessLayerException {
@@ -76,7 +78,16 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public boolean delete(Long id) {
-        return false;
+    public boolean delete(Long id) throws BusinessLayerException {
+        try {
+            Hospital hospital = repository.findById(id).orElse(null);
+            if (Objects.isNull(hospital))
+                return false;
+            doctorFeign.updateDeletedHospital(id);
+            repository.delete(hospital);
+            return true;
+        } catch (Exception e) {
+            throw new BusinessLayerException(e.getMessage(), e);
+        }
     }
 }

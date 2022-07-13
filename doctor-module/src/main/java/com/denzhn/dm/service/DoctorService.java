@@ -13,6 +13,8 @@ public interface DoctorService {
 
     DoctorDto update(Long id, Long hospitalId) throws BusinessLayerException;
 
+    boolean updateDeletedHospital(Long hospitalId) throws BusinessLayerException;
+
     boolean delete(Long doctorId) throws BusinessLayerException;
 
     List<DoctorDto> list() throws BusinessLayerException;

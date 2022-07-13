@@ -57,6 +57,19 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public boolean updateDeletedHospital(Long hospitalId) throws BusinessLayerException {
+        try {
+            repository.findDoctorsByHospitalId(hospitalId).forEach(doctor -> {
+                doctor.setHospitalId(null);
+                repository.save(doctor);
+            });
+            return true;
+        } catch (Exception e) {
+            throw new BusinessLayerException(e.getMessage(), e);
+        }
+    }
+
+    @Override
     public boolean delete(Long doctorId) throws BusinessLayerException {
         try {
             Doctor doctor = repository.findById(doctorId).orElse(null);

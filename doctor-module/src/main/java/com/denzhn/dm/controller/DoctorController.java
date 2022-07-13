@@ -90,4 +90,16 @@ public class DoctorController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
+
+    @PutMapping(path = "/deleted-hospital/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateDeletedHospital(@PathVariable Long id) {
+        try {
+            boolean serviceResult = service.updateDeletedHospital(id);
+            return BooleanUtils.isFalse(serviceResult) ?
+                    ResponseEntity.internalServerError().build() :
+                    ResponseEntity.ok(String.valueOf(serviceResult));
+        } catch (BusinessLayerException e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
 }

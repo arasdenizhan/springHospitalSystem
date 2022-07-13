@@ -14,5 +14,5 @@ public interface HospitalService {
 
     HospitalDto get(Long id) throws BusinessLayerException;
 
-    boolean delete(Long hospitalId);
+    boolean delete(Long hospitalId) throws BusinessLayerException;
 }
