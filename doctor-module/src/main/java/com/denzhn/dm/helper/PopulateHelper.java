@@ -4,8 +4,6 @@ import com.denzhn.repo.dm.dto.DoctorDto;
 import com.denzhn.repo.dm.model.AddressModel;
 import com.denzhn.repo.dm.model.Doctor;
 
-import java.util.Objects;
-
 public final class PopulateHelper {
 
     private static final String COMMA = ",";
@@ -15,8 +13,6 @@ public final class PopulateHelper {
     }
 
     public static DoctorDto convertToDoctorDto(Doctor doctor) {
-        if (Objects.isNull(doctor))
-            return null;
         return DoctorDto.builder()
                 .id(doctor.getId())
                 .name(doctor.getName())

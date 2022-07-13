@@ -35,7 +35,10 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public DoctorDto get(Long id) throws BusinessLayerException {
         try {
-            return PopulateHelper.convertToDoctorDto(repository.findById(id).orElse(null));
+            Doctor doctor = repository.findById(id).orElse(null);
+            if (Objects.isNull(doctor))
+                return null;
+            return PopulateHelper.convertToDoctorDto(doctor);
         } catch (Exception e) {
             throw new BusinessLayerException(e.getMessage(), e);
         }

@@ -71,7 +71,19 @@ public class HospitalServiceImpl implements HospitalService {
     @Override
     public HospitalDto get(Long id) throws BusinessLayerException {
         try {
-            return PopulateHelper.convertToHospitalDto(repository.findById(id).orElse(null));
+            Hospital hospital = repository.findById(id).orElse(null);
+            if (Objects.isNull(hospital))
+                return null;
+            return PopulateHelper.convertToHospitalDto(hospital);
+        } catch (Exception e) {
+            throw new BusinessLayerException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public List<HospitalDto> list() throws BusinessLayerException {
+        try {
+            return repository.findAll().stream().map(PopulateHelper::convertToHospitalDto).toList();
         } catch (Exception e) {
             throw new BusinessLayerException(e.getMessage(), e);
         }

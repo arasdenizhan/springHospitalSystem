@@ -21,6 +21,9 @@ public interface HospitalFeign {
     @GetMapping(path = "/api/hospital/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<String> get(@PathVariable Long id);
 
+    @GetMapping(path = "/api/hospital", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<String> list();
+
     @PutMapping(path = "/api/hospital/updated-doctor/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<String> updateDoctorInformation(@PathVariable Long id, @RequestBody Doctor doctor);
 

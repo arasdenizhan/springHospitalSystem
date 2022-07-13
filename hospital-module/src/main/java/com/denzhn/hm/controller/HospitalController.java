@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -49,6 +50,18 @@ public class HospitalController {
             return Objects.isNull(hospitalDto) ?
                     ResponseEntity.notFound().build() :
                     ResponseEntity.ok(objectMapper.writeValueAsString(hospitalDto));
+        } catch (JsonProcessingException | BusinessLayerException e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> list() {
+        try {
+            List<HospitalDto> list = service.list();
+            return BooleanUtils.isTrue(list.isEmpty()) ?
+                    ResponseEntity.notFound().build() :
+                    ResponseEntity.ok(objectMapper.writeValueAsString(list));
         } catch (JsonProcessingException | BusinessLayerException e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
