@@ -50,7 +50,7 @@ public class DoctorServiceImpl implements DoctorService {
             Doctor doctor = repository.findById(id).orElse(null);
             if (Objects.isNull(doctor))
                 return null;
-            hospitalFeign.updateDeletedDoctor(id, doctor);
+            hospitalFeign.updateDeletedDoctor(doctor.getHospitalId(), doctor);
             doctor.setHospitalId(hospitalId);
             hospitalFeign.updateDoctorInformation(hospitalId, doctor);
             return PopulateHelper.convertToDoctorDto(repository.save(doctor));

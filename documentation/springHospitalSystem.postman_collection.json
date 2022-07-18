@@ -132,27 +132,6 @@
       ]
     },
     {
-      "name": "Eureka Module",
-      "item": [
-        {
-          "name": "Server Console",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8761",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8761"
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
       "name": "Doctor Module",
       "item": [
         {
@@ -220,6 +199,27 @@
               "path": [
                 "api",
                 "doctor"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Doctor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8091/api/doctor/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "api",
+                "doctor",
+                "1"
               ]
             }
           },

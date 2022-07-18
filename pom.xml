@@ -114,7 +114,6 @@
         <module>eureka-server-module</module>
         <module>doctor-module</module>
         <module>hospital-module</module>
-        <module>patient-module</module>
     </modules>
 
 </project>
